@@ -26,5 +26,5 @@ net_interface = NetworkInterface(
 
 net_interface.authenticate()
 net_interface.get_cannons()
-net_interface.close_all_sockets()
 net_interface.quit_game()
+net_interface.close_all_sockets()
