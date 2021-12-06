@@ -1,18 +1,23 @@
 import json
+from socket import socket, timeout
 from struct import pack
 
 
-def send_command(socket_instance, sag, command):
+def send_command(socket_instance: socket, sag, command):
     raw_object = json.dumps(
         {"type": command, "auth":  sag})
     final_object = pack("!{}s".format(len(raw_object)),
                         raw_object.encode("utf-8"))
 
-    socket_instance.sendall(final_object)
-
-    socket_response = socket_instance.recv(1024).decode("utf-8")
-
-    print(socket_response)
+    while True:
+        try:
+            socket_instance.sendall(final_object)
+            socket_response_raw = socket_instance.recv(1024)
+            socket_response = socket_response_raw.decode("utf-8")
+            print(socket_response)
+            break
+        except timeout:
+            print("Command " + command + " timed out, trying again.")
 
 
 class NetworkInterface:
