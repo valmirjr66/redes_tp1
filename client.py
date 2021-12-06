@@ -16,6 +16,11 @@ socket_2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 socket_3 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 socket_4 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
+socket_1.settimeout(2)
+socket_2.settimeout(2)
+socket_3.settimeout(2)
+socket_4.settimeout(2)
+
 socket_1.connect((HOSTNAME, PORT))
 socket_2.connect((HOSTNAME, PORT+1))
 socket_3.connect((HOSTNAME, PORT+2))
