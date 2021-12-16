@@ -2,6 +2,7 @@
 
 import socket
 import sys
+from domain.CannonsWrapper import CannonsWrapper
 from domain.NetworkInterface import NetworkInterface
 
 HOSTNAME = sys.argv[1]
@@ -30,6 +31,8 @@ net_interface = NetworkInterface(
     SAG, [socket_1, socket_2, socket_3, socket_4])
 
 net_interface.authenticate()
-net_interface.get_cannons()
+cannons_wrapper = CannonsWrapper(net_interface.get_cannons())
+print(cannons_wrapper.get_content())
+
 net_interface.quit_game()
 net_interface.close_all_sockets()
