@@ -2,7 +2,7 @@
 
 import socket
 import sys
-from NetworkInterface import NetworkInterface
+from domain.NetworkInterface import NetworkInterface
 
 HOSTNAME = sys.argv[1]
 PORT = int(sys.argv[2])
