@@ -14,8 +14,7 @@ def send_command(socket_instance: socket, sag, command):
             socket_instance.sendall(final_object)
             socket_response_raw = socket_instance.recv(1024)
             socket_response = socket_response_raw.decode("utf-8")
-            print(socket_response)
-            break
+            return socket_response
         except timeout:
             print("Command " + command + " timed out, trying again.")
 
