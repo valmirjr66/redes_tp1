@@ -25,17 +25,23 @@ class NetworkInterface:
         self.socket_instances = socket_instances
 
     def authenticate(self):
+        response = []
         for socket_instance in self.socket_instances:
-            send_command(socket_instance, self.sag, "authreq")
+            response.append(send_command(socket_instance, self.sag, "authreq"))
+        return response
 
     def get_cannons(self):
+        response = []
         for socket_instance in self.socket_instances:
-            send_command(
-                socket_instance, self.sag, "getcannons")
+            response.append(send_command(
+                socket_instance, self.sag, "getcannons"))
+        return response
 
     def quit_game(self):
+        response = []
         for socket_instance in self.socket_instances:
-            send_command(socket_instance, self.sag, "quit")
+            response.append(send_command(socket_instance, self.sag, "quit"))
+        return response
 
     def close_all_sockets(self):
         for socket_instance in self.socket_instances:
