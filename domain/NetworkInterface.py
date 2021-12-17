@@ -33,8 +33,13 @@ class NetworkInterface:
     def get_cannons(self):
         response = []
         for socket_instance in self.socket_instances:
-            response.append(send_command(
-                socket_instance, self.sag, "getcannons"))
+            response.append(send_command(socket_instance, self.sag, "getcannons"))
+        return response
+
+    def get_turn(self):
+        response = []
+        for socket_instance in self.socket_instances:
+            response.append(send_command(socket_instance, self.sag, "getturn"))
         return response
 
     def quit_game(self):

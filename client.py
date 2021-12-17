@@ -4,6 +4,7 @@ import socket
 import sys
 from domain.CannonsWrapper import CannonsWrapper
 from domain.NetworkInterface import NetworkInterface
+from domain.Turn import Turn
 
 HOSTNAME = sys.argv[1]
 PORT = int(sys.argv[2])
@@ -30,9 +31,13 @@ socket_4.connect((HOSTNAME, PORT+3))
 net_interface = NetworkInterface(
     SAG, [socket_1, socket_2, socket_3, socket_4])
 
-net_interface.authenticate()
-cannons_wrapper = CannonsWrapper(net_interface.get_cannons())
+net_interface.authenticate() #autentaticacao
+
+cannons_wrapper = CannonsWrapper(net_interface.get_cannons()) #carrega canhoes
 print(cannons_wrapper.get_content())
+
+turno = Turn(net_interface.get_turn()) #carrega turno
+print(turno.get_content())
 
 net_interface.quit_game()
 net_interface.close_all_sockets()
