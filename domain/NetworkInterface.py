@@ -3,9 +3,14 @@ from socket import socket, timeout
 from struct import pack
 
 
-def send_command(socket_instance: socket, sag, command):
-    raw_object = json.dumps(
-        {"type": command, "auth":  sag})
+def send_command(socket_instance: socket, sag, command, appendix=None):
+    if appendix is None:
+        raw_object = json.dumps(
+            {"type": command, "auth":  sag})
+    else:
+        raw_object = json.dumps(
+            {"type": command, "auth":  sag, **appendix})
+
     final_object = pack("!{}s".format(len(raw_object)),
                         raw_object.encode("utf-8"))
 
@@ -33,13 +38,15 @@ class NetworkInterface:
     def get_cannons(self):
         response = []
         for socket_instance in self.socket_instances:
-            response.append(send_command(socket_instance, self.sag, "getcannons"))
+            response.append(send_command(
+                socket_instance, self.sag, "getcannons"))
         return response
 
-    def get_turn(self):
+    def get_turn(self, turn):
         response = []
         for socket_instance in self.socket_instances:
-            response.append(send_command(socket_instance, self.sag, "getturn"))
+            response.append(send_command(socket_instance,
+                            self.sag, "getturn", {"turn": turn}))
         return response
 
     def quit_game(self):
