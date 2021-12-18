@@ -1,11 +1,11 @@
 import json
 
-class Turn:
+
+class TurnWrapper:
     def __init__(self, raw_turn):
+        print(raw_turn)
         self.content = []
-     #   turno= 0
-      #  for turno in raw_turn:
-       #    turno=turno+1
+        self.turno = 0
 
     def get_content(self):
         return self.content
