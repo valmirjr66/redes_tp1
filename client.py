@@ -36,8 +36,17 @@ net_interface.authenticate()  # autentaticacao
 cannons_wrapper = CannonsWrapper(
     net_interface.get_cannons())  # carrega canhoes
 
-turn_wrapper = TurnWrapper(net_interface.get_turn(0))  # carrega turno
-print(turn_wrapper.get_content())
+turn_wrapper = TurnWrapper(net_interface)  # carrega turno
+for i in range(0, 270):
+    turn_wrapper.get_next_turn()
+    turn_current_content = turn_wrapper.get_content()
+    has_game_ended = False
+
+    for item in turn_current_content:
+        has_game_ended = has_game_ended or item['type'] == 'gameover'
+
+    if has_game_ended:
+        break
 
 net_interface.quit_game()
 net_interface.close_all_sockets()
