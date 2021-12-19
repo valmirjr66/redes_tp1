@@ -46,6 +46,14 @@ class NetworkInterface:
             response.append(send_command(socket_instance,
                             self.sag, "getturn", {"turn": turn}))
         return response
+    
+
+    def shot(self, cannon):
+        response = []
+        for socket_instance in self.socket_instances:
+            response.append(send_command(
+                socket_instance, self.sag, "shot", {"cannon":cannon}, {"id":id}))
+        return response
 
     def quit_game(self):
         response = []

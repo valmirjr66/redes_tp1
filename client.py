@@ -5,6 +5,7 @@ import sys
 from domain.CannonsWrapper import CannonsWrapper
 from domain.NetworkInterface import NetworkInterface
 from domain.TurnWrapper import TurnWrapper
+from domain.ShotWrapper import ShotWrapper
 
 HOSTNAME = sys.argv[1]
 PORT = int(sys.argv[2])
@@ -41,6 +42,9 @@ for i in range(0, 270):
     turn_wrapper.get_next_turn()
     turn_current_content = turn_wrapper.get_content()
     has_game_ended = False
+
+    
+    shot_wrapper = ShotWrapper(net_interface)
 
     for item in turn_current_content:
         has_game_ended = has_game_ended or item['type'] == 'gameover'
