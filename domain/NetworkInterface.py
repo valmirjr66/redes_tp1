@@ -1,6 +1,7 @@
 import json
 from socket import socket, timeout
 from struct import pack
+from typing import List
 
 
 def send_command(socket_instance: socket, sag, command, appendix=None):
@@ -23,7 +24,7 @@ def send_command(socket_instance: socket, sag, command, appendix=None):
 
 
 class NetworkInterface:
-    def __init__(self, sag, socket_instances):
+    def __init__(self, sag, socket_instances: List[socket]):
         self.sag = sag
         self.socket_instances = socket_instances
 
@@ -34,10 +35,8 @@ class NetworkInterface:
         return response
 
     def get_cannons(self):
-        response = []
-        for socket_instance in self.socket_instances:
-            response.append(send_command(
-                socket_instance, self.sag, "getcannons"))
+        response = send_command(
+            self.socket_instances[0], self.sag, "getcannons")
         return response
 
     def get_turn(self, turn):
@@ -46,13 +45,12 @@ class NetworkInterface:
             response.append(send_command(socket_instance,
                             self.sag, "getturn", {"turn": turn}))
         return response
-    
 
     def shot(self, cannon):
         response = []
         for socket_instance in self.socket_instances:
             response.append(send_command(
-                socket_instance, self.sag, "shot", {"cannon":cannon}, {"id":id}))
+                socket_instance, self.sag, "shot", {"cannon": cannon}, {"id": id}))
         return response
 
     def quit_game(self):
