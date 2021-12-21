@@ -2,6 +2,7 @@
 
 import socket
 import sys
+from time import sleep
 
 from domain.NetworkInterface import NetworkInterface
 from Game import Game
@@ -22,6 +23,11 @@ socket_1.settimeout(2)
 socket_2.settimeout(2)
 socket_3.settimeout(2)
 socket_4.settimeout(2)
+
+socket_1.bind(('', 0))
+socket_2.bind(('', 0))
+socket_3.bind(('', 0))
+socket_4.bind(('', 0))
 
 socket_1.connect((HOSTNAME, PORT))
 socket_2.connect((HOSTNAME, PORT+1))

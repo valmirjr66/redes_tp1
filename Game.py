@@ -17,8 +17,11 @@ def execute_game_logic(net_interface: NetworkInterface):
 
     turn_wrapper = TurnWrapper(net_interface)
 
+    turn_wrapper.get_next_turn()
+
     for turn_number in range(0, 273):
         for river in range(1, 5):
+            print(river)
             print(turn_wrapper.get_ships_by_river(river))
 
         turn_wrapper.get_next_turn()
