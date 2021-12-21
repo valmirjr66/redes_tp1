@@ -4,7 +4,7 @@ from domain.ShotWrapper import ShotWrapper
 from domain.TurnWrapper import TurnWrapper
 
 
-def play_game(net_interface: NetworkInterface):
+def execute_game_logic(net_interface: NetworkInterface):
     net_interface.authenticate()  # autentaticacao
 
     cannons_wrapper = CannonsWrapper(
@@ -13,8 +13,6 @@ def play_game(net_interface: NetworkInterface):
     if not cannons_wrapper.validate_cannons():
         print("cannons have bad positioning, finishing game")
         return 1
-
-    print(cannons_wrapper.get_content())
 
     turn_wrapper = TurnWrapper(net_interface)  # carrega turno
 
@@ -35,3 +33,11 @@ def play_game(net_interface: NetworkInterface):
     net_interface.close_all_sockets()
 
     return 0
+
+
+class Game:
+    def __init__(self, net_interface):
+        self.net_interface = net_interface
+
+    def play_game(self):
+        execute_game_logic(self.net_interface)

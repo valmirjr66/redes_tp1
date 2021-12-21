@@ -4,7 +4,7 @@ import socket
 import sys
 
 from domain.NetworkInterface import NetworkInterface
-from game import play_game
+from Game import Game
 
 HOSTNAME = sys.argv[1]
 PORT = int(sys.argv[2])
@@ -28,7 +28,8 @@ socket_2.connect((HOSTNAME, PORT+1))
 socket_3.connect((HOSTNAME, PORT+2))
 socket_4.connect((HOSTNAME, PORT+3))
 
-network_interface = NetworkInterface(
+net_interface = NetworkInterface(
     SAG, [socket_1, socket_2, socket_3, socket_4])
 
-status = play_game(network_interface)
+game_instance = Game(net_interface)
+status = game_instance.play_game()
