@@ -25,5 +25,5 @@ class TurnWrapper:
 
         return has_game_ended
 
-    def get_ships_by_river(self, river):
+    def get_state_by_river(self, river):
         return self.content[river - 1]

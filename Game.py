@@ -23,11 +23,11 @@ def execute_game_logic(net_interface: NetworkInterface):
         print("starting turn " + str(turn_number))
 
         for river in range(1, 5):
-            ships = turn_wrapper.get_ships_by_river(river)
+            state = turn_wrapper.get_state_by_river(river)
 
-            for ship in ships:
+            for ship in state['ships']:
                 best_cannon = cannons_wrapper.get_best_cannon_for_shot(
-                    river, ship['bridge'])
+                    river, state['bridge'])
 
                 if best_cannon != None:
                     net_interface.shot(best_cannon, ship['id'])

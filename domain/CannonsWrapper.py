@@ -19,6 +19,6 @@ class CannonsWrapper:
     def get_best_cannon_for_shot(self, river, bridge):
         for item in self.content:
             if item.get_bridge() == bridge and river in item.get_rivers_in_range():
-                return item.get_coordinates
+                return item.get_coordinates()
 
         return None
