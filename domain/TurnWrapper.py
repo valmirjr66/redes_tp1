@@ -12,7 +12,7 @@ class TurnWrapper:
         raw_turn = network_interface.get_turn(self.turno)
 
         for item in raw_turn:
-            self.content.append(json.loads(item))
+            self.content.append(json.loads(item)['ships'])
 
     def get_content(self):
         return self.content
