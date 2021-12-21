@@ -2,10 +2,9 @@
 
 import socket
 import sys
-from domain.CannonsWrapper import CannonsWrapper
+
 from domain.NetworkInterface import NetworkInterface
-from domain.TurnWrapper import TurnWrapper
-from domain.ShotWrapper import ShotWrapper
+from game import play_game
 
 HOSTNAME = sys.argv[1]
 PORT = int(sys.argv[2])
@@ -29,28 +28,7 @@ socket_2.connect((HOSTNAME, PORT+1))
 socket_3.connect((HOSTNAME, PORT+2))
 socket_4.connect((HOSTNAME, PORT+3))
 
-net_interface = NetworkInterface(
+network_interface = NetworkInterface(
     SAG, [socket_1, socket_2, socket_3, socket_4])
 
-net_interface.authenticate()  # autentaticacao
-
-cannons_wrapper = CannonsWrapper(
-    net_interface.get_cannons())  # carrega canhoes
-
-turn_wrapper = TurnWrapper(net_interface)  # carrega turno
-for i in range(0, 270):
-    turn_wrapper.get_next_turn()
-    turn_current_content = turn_wrapper.get_content()
-    has_game_ended = False
-
-    
-    shot_wrapper = ShotWrapper(net_interface)
-
-    for item in turn_current_content:
-        has_game_ended = has_game_ended or item['type'] == 'gameover'
-
-    if has_game_ended:
-        break
-
-net_interface.quit_game()
-net_interface.close_all_sockets()
+status = play_game(network_interface)
