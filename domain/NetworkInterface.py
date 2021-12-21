@@ -57,8 +57,6 @@ class NetworkInterface:
         response = []
         for socket_instance in self.socket_instances:
             response.append(send_command(socket_instance, self.sag, "quit"))
-        return response
-
-    def close_all_sockets(self):
-        for socket_instance in self.socket_instances:
             socket_instance.close()
+
+        return response
