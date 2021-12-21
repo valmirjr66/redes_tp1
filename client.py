@@ -38,4 +38,9 @@ net_interface = NetworkInterface(
     SAG, [socket_1, socket_2, socket_3, socket_4])
 
 game_instance = Game(net_interface)
-status = game_instance.play_game()
+game_status = game_instance.play_game()
+
+if game_status == 0:
+    print("game executed correctly")
+else:
+    print("game execution failed")
