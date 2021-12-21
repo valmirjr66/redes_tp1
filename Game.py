@@ -5,32 +5,30 @@ from domain.TurnWrapper import TurnWrapper
 
 
 def execute_game_logic(net_interface: NetworkInterface):
-    net_interface.authenticate()  # autentaticacao
+    net_interface.authenticate()
 
     cannons_wrapper = CannonsWrapper(
-        net_interface.get_cannons())  # carrega canhoes
+        net_interface.get_cannons())
 
     if not cannons_wrapper.validate_cannons():
         print("cannons have bad positioning, finishing game")
+        net_interface.quit_game()
         return 1
 
-    turn_wrapper = TurnWrapper(net_interface)  # carrega turno
+    turn_wrapper = TurnWrapper(net_interface)
 
-    for i in range(0, 270):
+    for turn_number in range(0, 273):
+        for river in range(1, 5):
+            print(turn_wrapper.get_ships_by_river(river))
+
         turn_wrapper.get_next_turn()
-        current_turn_content = turn_wrapper.get_content()
-        has_game_ended = False
 
-        shot_wrapper = ShotWrapper(net_interface)
-
-        for item in current_turn_content:
-            has_game_ended = has_game_ended or item['type'] == 'gameover'
-
-        if has_game_ended:
+        if turn_wrapper.is_game_over():
+            print("we lost, finishing game")
+            net_interface.quit_game()
             break
 
     net_interface.quit_game()
-    net_interface.close_all_sockets()
 
     return 0
 
