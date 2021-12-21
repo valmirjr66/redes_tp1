@@ -1,6 +1,5 @@
 from domain.CannonsWrapper import CannonsWrapper
 from domain.NetworkInterface import NetworkInterface
-from domain.ShotWrapper import ShotWrapper
 from domain.TurnWrapper import TurnWrapper
 
 
@@ -30,7 +29,8 @@ def execute_game_logic(net_interface: NetworkInterface):
                     river, state['bridge'])
 
                 if best_cannon != None:
-                    net_interface.shot(best_cannon, ship['id'])
+                    response = net_interface.shot(river, best_cannon, ship['id'])
+                    print(response)
 
         turn_wrapper.get_next_turn()
 
